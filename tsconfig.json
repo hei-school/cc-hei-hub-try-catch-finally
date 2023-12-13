@@ -5,6 +5,7 @@
     "module": "esnext",
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
