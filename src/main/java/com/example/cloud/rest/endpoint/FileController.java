@@ -84,7 +84,7 @@ public class FileController {
   }
 
   @DeleteMapping("/file/{file_name}")
-  public void deleteFile(@PathVariable(name = "file_name")String filename) {
+  public void deleteFile(@PathVariable(name = "file_name") String filename) {
     throw new NotImplementedException("Not implemented");
   }
 }

@@ -31,28 +31,22 @@ public class FileService {
           Paths.get(utils.getUploadDirectory(dir) + File.separator + filename),
           StandardCopyOption.REPLACE_EXISTING);
       response = true;
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new ApiException(SERVER_EXCEPTION, e.getMessage());
     }
-    if (response) {
-      return filename;
-    }
-    return null;
+    return filename;
   }
 
   public byte[] downloadFile(String fileName, String dir) {
     Path FILE;
-    try{
+    try {
       FILE = Paths.get(utils.getUploadDirectory(dir) + File.separator + fileName);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new FileNotFoundException("file with name " + fileName + " not found");
     }
     try {
       return Files.readAllBytes(FILE);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new ApiException(SERVER_EXCEPTION, e.getMessage());
     }
   }

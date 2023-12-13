@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 public class FileUtils {
   public void checkDuplicatedFile(String dir, String filename) throws IOException {
     Set<String> filesDirectory = listOfFilesInDirectory(getUploadDirectory(dir));
-    if(filesDirectory.contains(filename)) {
+    if (filesDirectory.contains(filename)) {
       throw new DuplicateFileException("filename with: " + filename + " already exist");
     }
   }
 
   public Set<String> listOfFilesInDirectory(String dir) throws IOException {
-    try(Stream<Path> stream = Files.list(Paths.get(dir))) {
+    try (Stream<Path> stream = Files.list(Paths.get(dir))) {
       return stream
           .filter(file -> !Files.isDirectory(file))
           .map(Path::getFileName)
@@ -30,7 +30,7 @@ public class FileUtils {
     }
   }
 
-  public String getUploadDirectory(String dynamicPath) throws IOException{
-    return new ClassPathResource("static/"+dynamicPath).getFile().getAbsolutePath();
+  public String getUploadDirectory(String dynamicPath) throws IOException {
+    return new ClassPathResource("static/" + dynamicPath).getFile().getAbsolutePath();
   }
 }

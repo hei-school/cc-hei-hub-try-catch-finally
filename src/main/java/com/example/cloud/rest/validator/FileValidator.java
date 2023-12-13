@@ -3,10 +3,10 @@ package com.example.cloud.rest.validator;
 import com.example.cloud.model.FileModel;
 import com.example.cloud.model.exception.BadFileTypeException;
 import com.example.cloud.model.exception.FileTooLargeException;
+import com.example.cloud.model.exception.InvalidFileNameException;
 import com.example.cloud.model.exception.SensitiveFileException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import com.example.cloud.model.exception.InvalidFileNameException;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +37,7 @@ public class FileValidator {
         "application/pdf", "image/png", "image/jpeg",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "text/csv");
-    if(!expectedFileType.contains(multipartFile.getContentType())) {
+    if (!expectedFileType.contains(multipartFile.getContentType())) {
       throw new BadFileTypeException("Unsupported file type: " + multipartFile.getContentType());
     }
   }
@@ -46,8 +46,7 @@ public class FileValidator {
     String content = "";
     try {
       content = new String(multipartFile.getBytes(), StandardCharsets.UTF_8);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
 
     }
     List<String> expectedOriginalFilename = List.of("password", "psswd",
@@ -62,8 +61,8 @@ public class FileValidator {
   }
 
   public void checkFileName(String filename) {
-    if (!filename.startsWith(FILE_NAME_PREFIX)){
-      throw new InvalidFileNameException("Filename should start with \""+FILE_NAME_PREFIX+"\"");
+    if (!filename.startsWith(FILE_NAME_PREFIX)) {
+      throw new InvalidFileNameException("Filename should start with \"" + FILE_NAME_PREFIX + "\"");
     }
   }
 }
