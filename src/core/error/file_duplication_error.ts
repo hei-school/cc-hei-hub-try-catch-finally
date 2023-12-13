@@ -1,3 +1,4 @@
+import {BadRequest} from "http-errors";
 import {CustomError} from "./custom_error";
 
 export class FileDuplicationError extends CustomError {
@@ -5,5 +6,9 @@ export class FileDuplicationError extends CustomError {
     super(
       `Please ensure the file you are trying to save upload is unique. (?) rename`
     );
+  }
+
+  override toHttp() {
+    return new BadRequest(this.message);
   }
 }
