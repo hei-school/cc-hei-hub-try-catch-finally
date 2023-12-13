@@ -16,6 +16,8 @@ This is the Typescript version of the _Documenty_ App
 
 - Download File in specified path as: img / video / pdf
 
+- Delete file: not implemented 
+
 ### Setup and run
 
 1. Using Typescript
