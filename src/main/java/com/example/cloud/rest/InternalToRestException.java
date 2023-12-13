@@ -6,6 +6,8 @@ import com.example.cloud.model.exception.DuplicateFileException;
 import com.example.cloud.model.exception.FileNotFoundException;
 import com.example.cloud.model.exception.FileTooLargeException;
 import com.example.cloud.model.exception.InsufficientCloudStorageException;
+import com.example.cloud.model.exception.NotImplementedException;
+import com.example.cloud.model.exception.SensitiveFileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,6 +39,16 @@ public class InternalToRestException {
   @ExceptionHandler({FileTooLargeException.class})
   public ResponseEntity<?> toRest(FileTooLargeException e) {
     return mapToRest(e, HttpStatus.LOCKED);
+  }
+
+  @ExceptionHandler({NotImplementedException.class})
+  public ResponseEntity<?> toRest(NotImplementedException e) {
+    return mapToRest(e, HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  @ExceptionHandler({SensitiveFileException.class})
+  public ResponseEntity<?> toRest(SensitiveFileException e) {
+    return mapToRest(e, HttpStatus.BAD_REQUEST);
   }
 
   private ResponseEntity<?> mapToRest(ApiException e, HttpStatus status) {

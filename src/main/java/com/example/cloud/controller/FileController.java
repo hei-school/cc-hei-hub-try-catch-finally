@@ -2,10 +2,13 @@ package com.example.cloud.controller;
 
 import com.example.cloud.controller.model.FileModel;
 import com.example.cloud.controller.validator.FileValidator;
+import com.example.cloud.model.exception.NotImplementedException;
 import com.example.cloud.service.FileService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,7 +66,6 @@ public class FileController {
       value = "/file/pdf",
       produces = {MediaType.APPLICATION_PDF_VALUE})
   public byte[] downloadPdf(@RequestParam(name = "file_name")String fileName) {
-    validator.checkFileType(fileName);
     return service.downloadFile(fileName, "pdf");
   }
 
@@ -71,7 +73,6 @@ public class FileController {
       value = "/file/img",
       produces = {MediaType.IMAGE_JPEG_VALUE})
   public byte[] downloadImg(@RequestParam(name = "file_name")String fileName) {
-    validator.checkFileType(fileName);
     return service.downloadFile(fileName, "img");
   }
 
@@ -79,7 +80,11 @@ public class FileController {
       value = "/file/video",
       produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
   public byte[] downloadVideo(@RequestParam(name = "file_name")String fileName) {
-    validator.checkFileType(fileName);
     return service.downloadFile(fileName, "video");
+  }
+
+  @DeleteMapping("/file/{file_name}")
+  public void deleteFile(@PathVariable(name = "file_name")String filename) {
+    throw new NotImplementedException("Not implemented");
   }
 }
