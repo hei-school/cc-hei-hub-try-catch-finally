@@ -7,7 +7,9 @@ import {errorHandler} from "./api/middleware/error";
 const application = Express();
 
 // middelware
-application.use(bodyParser.raw({type: ["image/*", "application/*"]}));
+application.use(
+  bodyParser.raw({type: ["image/*", "video/*", "application/*"]})
+);
 application.use(cors());
 application.use(errorHandler);
 
