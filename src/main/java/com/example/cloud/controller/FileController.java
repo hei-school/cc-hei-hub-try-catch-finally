@@ -18,10 +18,11 @@ public class FileController {
   @PostMapping(
       value = "/file/{dynamic_path}",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public void upload(
+  public String upload(
       @PathVariable(name = "dynamic_path")String dynamicPath,
-      @RequestParam(name = "file")MultipartFile file) {
-    service.uploadFile(file, dynamicPath);
+      @RequestParam(name = "file")MultipartFile file,
+      @RequestParam(name = "file_name")String filename) throws Exception {
+    return service.uploadFile(file, dynamicPath, filename);
   }
 
   @GetMapping(
