@@ -1,5 +1,6 @@
 package com.example.cloud.controller;
 
+import com.example.cloud.controller.validator.FileValidator;
 import com.example.cloud.service.FileService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class FileController {
   private final FileService service;
+  private final FileValidator validator;
 
   @PostMapping(
       value = "/file/pdf}",
@@ -21,6 +23,7 @@ public class FileController {
   public String uploadPdf(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
+    validator.checkFileType(filename);
     return service.uploadFile(file, "pdf", filename);
   }
 
@@ -30,6 +33,7 @@ public class FileController {
   public String uploadImg(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
+    validator.checkFileType(filename);
     return service.uploadFile(file, "img", filename);
   }
 
@@ -39,6 +43,7 @@ public class FileController {
   public String uploadVideo(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
+    validator.checkFileType(filename);
     return service.uploadFile(file, "video", filename);
   }
 
