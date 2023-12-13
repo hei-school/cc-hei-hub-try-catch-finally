@@ -6,3 +6,5 @@ export const SUPPORTED_EXT: Record<string, string[]> = {
 };
 
 export const getSupportedFolder = () => Object.keys(SUPPORTED_EXT);
+
+export const MAX_FILE_SIZE_IN_KB = 20 * 1_000;

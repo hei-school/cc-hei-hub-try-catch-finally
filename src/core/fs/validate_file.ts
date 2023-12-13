@@ -3,11 +3,17 @@ import {ParsedPath} from "node:path";
 import {
   BadFileTypeError,
   FileDuplicationError,
+  FileSizeExceedError,
   FolderNotFound,
   InvalidFileNameError,
 } from "../error";
-import {SUPPORTED_EXT, getSupportedFolder} from "../constants";
+import {
+  MAX_FILE_SIZE_IN_KB,
+  SUPPORTED_EXT,
+  getSupportedFolder,
+} from "../constants";
 import {makeFilePathInStorage} from "./storage";
+import {getFileSizeInKb} from "./get_file_in_kb";
 
 type ValidationOptions = {
   fullpath: string;
@@ -21,6 +27,7 @@ export const validateFile = (
 ) => {
   validateFolder(dir, parsed);
   validateFilename(parsed.name);
+  validateFileSize(buf);
   ensureFileIsUnique(dir, fullpath, parsed.base);
 };
 
@@ -28,6 +35,14 @@ const ensureFileIsUnique = (dir: string, fullpath: string, file: string) => {
   const storagePath = makeFilePathInStorage(dir, file);
   if (existsSync(storagePath)) {
     throw new FileDuplicationError(fullpath);
+  }
+};
+
+export const validateFileSize = (buf: ArrayBuffer) => {
+  console.log("vaidate_size");
+  const fileSize = getFileSizeInKb(buf);
+  if (fileSize > MAX_FILE_SIZE_IN_KB) {
+    throw new FileSizeExceedError(MAX_FILE_SIZE_IN_KB);
   }
 };
 
