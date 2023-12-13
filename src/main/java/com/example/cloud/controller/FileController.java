@@ -31,4 +31,18 @@ public class FileController {
   public byte[] downloadPdf(@RequestParam(name = "file_name")String fileName) {
     return service.downloadFile(fileName, ".pdf", "pdf");
   }
+
+  @GetMapping(
+      value = "/file/img",
+      produces = {MediaType.IMAGE_JPEG_VALUE})
+  public byte[] downloadImg(@RequestParam(name = "file_name")String fileName) {
+    return service.downloadFile(fileName, ".jpg", "img");
+  }
+
+  @GetMapping(
+      value = "/file/video",
+      produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
+  public byte[] downloadVideo(@RequestParam(name = "file_name")String fileName) {
+    return service.downloadFile(fileName, ".mp4", "video");
+  }
 }
