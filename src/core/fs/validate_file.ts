@@ -1,19 +1,34 @@
+import {existsSync} from "node:fs";
 import {ParsedPath} from "node:path";
 import {
   BadFileTypeError,
-  FileIntegrityError,
+  FileDuplicationError,
   FolderNotFound,
   InvalidFileNameError,
 } from "../error";
 import {SUPPORTED_EXT, getSupportedFolder} from "../constants";
+import {makeFilePathInStorage} from "./storage";
+
+type ValidationOptions = {
+  fullpath: string;
+  parsedPath: ParsedPath;
+  dir: string;
+};
 
 export const validateFile = (
   buf: ArrayBuffer,
-  dir: string,
-  filepath: ParsedPath
+  {dir, fullpath, parsedPath: parsed}: ValidationOptions
 ) => {
-  validateFolder(dir, filepath);
-  validateFilename(filepath.name);
+  validateFolder(dir, parsed);
+  validateFilename(parsed.name);
+  ensureFileIsUnique(dir, fullpath, parsed.base);
+};
+
+const ensureFileIsUnique = (dir: string, fullpath: string, file: string) => {
+  const storagePath = makeFilePathInStorage(dir, file);
+  if (existsSync(storagePath)) {
+    throw new FileDuplicationError(fullpath);
+  }
 };
 
 const validateFolder = (folder: string, file: ParsedPath) => {

@@ -11,10 +11,11 @@ application.use(
   bodyParser.raw({type: ["image/*", "video/*", "application/*"]})
 );
 application.use(cors());
-application.use(errorHandler);
 
 // controller
 application.use("/ping", healthRouter);
 application.use("/file", fileRouter);
+
+application.use(errorHandler);
 
 export {application};
