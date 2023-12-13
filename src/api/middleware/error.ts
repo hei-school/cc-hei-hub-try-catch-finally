@@ -1,15 +1,17 @@
 import {HttpError} from "http-errors";
 import {ErrorRequestHandler} from "express";
+import {CustomError} from "../../core/error/custom_error";
 
 export const errorHandler: ErrorRequestHandler = (
-  err: HttpError,
+  err: CustomError,
   _req,
   res,
   next
 ) => {
-  res.status(err.status).json({
-    status: err.status,
-    name: err.name,
-    message: err.message,
+  const http = err.toHttp();
+  return res.status(http.status).json({
+    status: http.status,
+    name: http.name,
+    message: http.message,
   });
 };

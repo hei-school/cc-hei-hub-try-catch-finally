@@ -1,17 +1,21 @@
 import Express from "express";
 import cors from "cors";
-import {healthRouter} from "./api/router";
+import bodyParser from "body-parser";
+import {fileRouter, healthRouter} from "./api/router";
 import {errorHandler} from "./api/middleware/error";
 
 const application = Express();
 
-// middleware
-application.use(Express.json());
+// middelware
+application.use(
+  bodyParser.raw({type: ["image/*", "video/*", "application/*"]})
+);
 application.use(cors());
 
 // controller
 application.use("/ping", healthRouter);
-// middelware
+application.use("/file", fileRouter);
+
 application.use(errorHandler);
 
 export {application};
