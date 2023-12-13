@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = CloudApplication.class)
@@ -18,13 +18,13 @@ public class FileControllerIT {
 
   @Test
   void upload_duplicate_file_ko() throws Exception {
-    this.mockMvc.perform(get("/upload")) //Set according the situation
+    this.mockMvc.perform(post("/file/img")) //Set according the situation
         .andExpect(status().isBadRequest());
   }
 
   @Test
   void insufficient_storage() throws Exception {
-    this.mockMvc.perform(get("/upload")) //Set according the situation
+    this.mockMvc.perform(post("/file/img")) //Set according the situation
         .andExpect(status().isInsufficientStorage());
   }
 

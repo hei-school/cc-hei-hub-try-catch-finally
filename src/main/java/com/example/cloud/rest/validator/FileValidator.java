@@ -1,18 +1,22 @@
-package com.example.cloud.controller.validator;
+package com.example.cloud.rest.validator;
 
-import com.example.cloud.controller.model.FileModel;
+import com.example.cloud.model.FileModel;
 import com.example.cloud.model.exception.BadFileTypeException;
 import com.example.cloud.model.exception.FileTooLargeException;
 import com.example.cloud.model.exception.SensitiveFileException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import org.springframework.stereotype.Component;
+import com.example.cloud.model.exception.InvalidFileNameException;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class FileValidator {
+  private static final String FILE_NAME_PREFIX = "Document_";
+
   public void accept(FileModel fileModel) {
+    checkFileName(fileModel.getFilename());
     checkFileSize(fileModel.getFile());
     checkFileType(fileModel.getFile());
     checkFileSensibility(fileModel.getFile());
@@ -54,6 +58,12 @@ public class FileValidator {
     }
     if (content.contains("password") || content.contains("bank")) {
       throw new SensitiveFileException("Sensitive file");
+    }
+  }
+
+  public void checkFileName(String filename) {
+    if (!filename.startsWith(FILE_NAME_PREFIX)){
+      throw new InvalidFileNameException("Filename should start with \""+FILE_NAME_PREFIX+"\"");
     }
   }
 }
