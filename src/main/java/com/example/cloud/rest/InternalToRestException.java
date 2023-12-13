@@ -1,7 +1,10 @@
 package com.example.cloud.rest;
 
 import com.example.cloud.model.exception.ApiException;
+import com.example.cloud.model.exception.BadFileTypeException;
 import com.example.cloud.model.exception.DuplicateFileException;
+import com.example.cloud.model.exception.FileNotFoundException;
+import com.example.cloud.model.exception.FileTooLargeException;
 import com.example.cloud.model.exception.InsufficientCloudStorageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,20 @@ public class InternalToRestException {
     return mapToRest(e, HttpStatus.INSUFFICIENT_STORAGE);
   }
 
+  @ExceptionHandler({BadFileTypeException.class})
+  public ResponseEntity<?> toRest(BadFileTypeException e) {
+    return mapToRest(e, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler({FileNotFoundException.class})
+  public ResponseEntity<?> toRest(FileNotFoundException e) {
+    return mapToRest(e, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler({FileTooLargeException.class})
+  public ResponseEntity<?> toRest(FileTooLargeException e) {
+    return mapToRest(e, HttpStatus.LOCKED);
+  }
 
   private ResponseEntity<?> mapToRest(ApiException e, HttpStatus status) {
     return new ResponseEntity<>(e.getMessage(), status);
