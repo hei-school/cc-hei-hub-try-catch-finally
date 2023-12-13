@@ -1,11 +1,11 @@
 package com.example.cloud.controller;
 
+import com.example.cloud.controller.model.FileModel;
 import com.example.cloud.controller.validator.FileValidator;
 import com.example.cloud.service.FileService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +23,12 @@ public class FileController {
   public String uploadPdf(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
-    validator.checkFileType(filename);
-    return service.uploadFile(file, "pdf", filename);
+    FileModel fileModel = FileModel.builder()
+        .file(file)
+        .filename(filename)
+        .build();
+    validator.accept(fileModel);
+    return service.uploadFile(fileModel.getFile(), "pdf", fileModel.getFilename());
   }
 
   @PostMapping(
@@ -33,8 +37,12 @@ public class FileController {
   public String uploadImg(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
-    validator.checkFileType(filename);
-    return service.uploadFile(file, "img", filename);
+    FileModel fileModel = FileModel.builder()
+        .file(file)
+        .filename(filename)
+        .build();
+    validator.accept(fileModel);
+    return service.uploadFile(fileModel.getFile(), "pdf", fileModel.getFilename());
   }
 
   @PostMapping(
@@ -43,8 +51,12 @@ public class FileController {
   public String uploadVideo(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
-    validator.checkFileType(filename);
-    return service.uploadFile(file, "video", filename);
+    FileModel fileModel = FileModel.builder()
+        .file(file)
+        .filename(filename)
+        .build();
+    validator.accept(fileModel);
+    return service.uploadFile(fileModel.getFile(), "pdf", fileModel.getFilename());
   }
 
   @GetMapping(
