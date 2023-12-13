@@ -16,13 +16,30 @@ public class FileController {
   private final FileService service;
 
   @PostMapping(
-      value = "/file/{dynamic_path}",
+      value = "/file/pdf}",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public String upload(
-      @PathVariable(name = "dynamic_path")String dynamicPath,
+  public String uploadPdf(
       @RequestParam(name = "file")MultipartFile file,
       @RequestParam(name = "file_name")String filename) throws Exception {
-    return service.uploadFile(file, dynamicPath, filename);
+    return service.uploadFile(file, "pdf", filename);
+  }
+
+  @PostMapping(
+      value = "/file/img}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+  public String uploadImg(
+      @RequestParam(name = "file")MultipartFile file,
+      @RequestParam(name = "file_name")String filename) throws Exception {
+    return service.uploadFile(file, "img", filename);
+  }
+
+  @PostMapping(
+      value = "/file/video}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+  public String uploadVideo(
+      @RequestParam(name = "file")MultipartFile file,
+      @RequestParam(name = "file_name")String filename) throws Exception {
+    return service.uploadFile(file, "video", filename);
   }
 
   @GetMapping(
