@@ -1,5 +1,6 @@
 package com.example.cloud.service;
 
+import com.example.cloud.model.exception.ApiException;
 import com.example.cloud.service.utils.FileUtils;
 import java.io.File;
 import java.io.IOException;
@@ -16,18 +17,21 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class FileService {
   private final FileUtils utils;
+
   public String uploadFile(MultipartFile multipartFile, String path, String filename)
       throws Exception {
+
     boolean response = false;
     try {
       Files.copy(
           multipartFile.getInputStream(),
+
           Paths.get(utils.getUploadDirectory(path) + File.separator + filename),
           StandardCopyOption.REPLACE_EXISTING);
       response = true;
     }
     catch (IOException e) {
-      throw new Exception(e.getMessage());
+      throw new ApiException(ApiException.ExceptionType.SERVER_EXCEPTION, e.getMessage());
     }
     if (response) {
       return filename;
