@@ -18,7 +18,7 @@ public class FileController {
   private final FileValidator validator;
 
   @PostMapping(
-      value = "/file/pdf}",
+      value = "/file/pdf",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public String uploadPdf(
       @RequestParam(name = "file")MultipartFile file,
@@ -28,7 +28,7 @@ public class FileController {
   }
 
   @PostMapping(
-      value = "/file/img}",
+      value = "/file/img",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public String uploadImg(
       @RequestParam(name = "file")MultipartFile file,
@@ -38,7 +38,7 @@ public class FileController {
   }
 
   @PostMapping(
-      value = "/file/video}",
+      value = "/file/video",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public String uploadVideo(
       @RequestParam(name = "file")MultipartFile file,
@@ -51,20 +51,23 @@ public class FileController {
       value = "/file/pdf",
       produces = {MediaType.APPLICATION_PDF_VALUE})
   public byte[] downloadPdf(@RequestParam(name = "file_name")String fileName) {
-    return service.downloadFile(fileName, ".pdf", "pdf");
+    validator.checkFileType(fileName);
+    return service.downloadFile(fileName, "pdf");
   }
 
   @GetMapping(
       value = "/file/img",
       produces = {MediaType.IMAGE_JPEG_VALUE})
   public byte[] downloadImg(@RequestParam(name = "file_name")String fileName) {
-    return service.downloadFile(fileName, ".jpg", "img");
+    validator.checkFileType(fileName);
+    return service.downloadFile(fileName, "img");
   }
 
   @GetMapping(
       value = "/file/video",
       produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
   public byte[] downloadVideo(@RequestParam(name = "file_name")String fileName) {
-    return service.downloadFile(fileName, ".mp4", "video");
+    validator.checkFileType(fileName);
+    return service.downloadFile(fileName, "video");
   }
 }

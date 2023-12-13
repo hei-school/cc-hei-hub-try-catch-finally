@@ -41,10 +41,10 @@ public class FileService {
     return null;
   }
 
-  public byte[] downloadFile(String fileName, String fileType, String path) {
+  public byte[] downloadFile(String fileName, String dir) {
     Path FILE;
     try{
-      FILE = Paths.get(utils.getUploadDirectory(path) + File.separator + fileName + fileType);
+      FILE = Paths.get(utils.getUploadDirectory(dir) + File.separator + fileName);
     }
     catch (IOException e) {
       throw new FileNotFoundException("file with name " + fileName + " not found");
