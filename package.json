@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/hei-school/cc-hei-hub-try-catch-finally#readme",
   "dependencies": {
+    "node": "^18.18.2",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
