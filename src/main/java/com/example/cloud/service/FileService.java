@@ -18,14 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileService {
   private final FileUtils utils;
 
+
   public String uploadFile(MultipartFile multipartFile, String path, String filename)
       throws Exception {
-
     boolean response = false;
     try {
       Files.copy(
           multipartFile.getInputStream(),
-
           Paths.get(utils.getUploadDirectory(path) + File.separator + filename),
           StandardCopyOption.REPLACE_EXISTING);
       response = true;
