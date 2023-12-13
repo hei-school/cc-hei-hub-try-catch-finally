@@ -3,6 +3,6 @@ import {downloadFileHandler} from "../controller/dowload.controller";
 
 const dowloadRouter = Router();
 
-dowloadRouter.get("/dowload", downloadFileHandler);
+dowloadRouter.get("/download", downloadFileHandler);
 
 export {dowloadRouter};

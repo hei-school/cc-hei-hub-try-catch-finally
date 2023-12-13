@@ -9,10 +9,7 @@ const application = Express();
 
 // middelware
 application.use(
-  bodyParser.raw({
-    type: ["image/*", "video/*", "application/*"],
-    limit: /* bytes */ MAX_FILE_SIZE_IN_KB / 1_000,
-  })
+  bodyParser.raw({type: ["image/*", "video/*", "application/*"]})
 );
 application.use(cors());
 
