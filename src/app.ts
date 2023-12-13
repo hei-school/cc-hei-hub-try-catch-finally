@@ -15,6 +15,7 @@ application.use(
   })
 );
 application.use(cors());
+application.use(errorHandler);
 
 // controller
 application.use("/ping", healthRouter);
