@@ -1,20 +1,28 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Request, Response } from 'express';
+import { Request, RequestHandler, Response } from 'express';
+import {InternalServerError} from "http-errors";
+import {FileNotFoundError, FolderNotFound} from "../../core/error"
 
 const storageFolderPath = path.join(__dirname, 'storage');
 
-export const getFileController = (req: Request, res: Response) => {
-  const fileName: string = req.params.fileName;
+export const downloadFileHandler: RequestHandler = (req: Request, res: Response) => {
+  const pathParams: string = req.params.path;
+  const [folder, fileName] = pathParams.split('/');
 
-  const filePath = path.join(storageFolderPath, fileName);
+  const validFolderPathTypes = ['img', 'video', 'pdf', 'docs', ];
+  if (!validFolderPathTypes.includes(folder)) {
+    throw new FolderNotFound(folder);
+  }
+
+  const filePath = path.join(storageFolderPath, folder, fileName);
   if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: 'Fichier non trouvé' });
+    throw new FileNotFoundError(fileName);
   }
 
   try {
     const fileBuffer = fs.readFileSync(filePath);
-    
+
     const arrayBuffer = fileBuffer.buffer.slice(
       fileBuffer.byteOffset,
       fileBuffer.byteOffset + fileBuffer.byteLength
@@ -22,6 +30,6 @@ export const getFileController = (req: Request, res: Response) => {
 
     res.send(arrayBuffer);
   } catch (error) {
-    return res.status(500).json({ error: 'Erreur lors de la lecture du fichier' });
+    throw new InternalServerError("Corrupted file");
   }
 };
