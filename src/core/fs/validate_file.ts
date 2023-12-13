@@ -1,5 +1,10 @@
 import {ParsedPath} from "node:path";
-import {BadFileTypeError, FolderNotFound, InvalidFileNameError} from "../error";
+import {
+  BadFileTypeError,
+  FileIntegrityError,
+  FolderNotFound,
+  InvalidFileNameError,
+} from "../error";
 import {SUPPORTED_EXT, getSupportedFolder} from "../constants";
 
 export const validateFile = (

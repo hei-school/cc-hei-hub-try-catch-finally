@@ -6,16 +6,13 @@ import {errorHandler} from "./api/middleware/error";
 
 const application = Express();
 
-// middleware
-application.use(Express.json());
-application.use(bodyParser.raw());
+// middelware
+application.use(bodyParser.raw({type: ["image/*", "application/*"]}));
 application.use(cors());
+application.use(errorHandler);
 
 // controller
 application.use("/ping", healthRouter);
 application.use("/file", fileRouter);
-
-// middelware
-application.use(errorHandler);
 
 export {application};
