@@ -1,4 +1,4 @@
-package com.example.cloud.controller.model;
+package com.example.cloud.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,4 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileModel {
   private String filename;
   private MultipartFile file;
+  private FilePermission permission;
+
+  public enum FilePermission {
+    LOCKED, LEGAL_REASON
+  }
+
 }

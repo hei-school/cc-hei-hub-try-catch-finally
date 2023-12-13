@@ -1,8 +1,8 @@
-package com.example.cloud.controller;
+package com.example.cloud.rest.endpoint;
 
-import com.example.cloud.controller.model.FileModel;
-import com.example.cloud.controller.validator.FileValidator;
+import com.example.cloud.model.FileModel;
 import com.example.cloud.model.exception.NotImplementedException;
+import com.example.cloud.rest.validator.FileValidator;
 import com.example.cloud.service.FileService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -24,8 +24,8 @@ public class FileController {
       value = "/file/pdf",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public String uploadPdf(
-      @RequestParam(name = "file")MultipartFile file,
-      @RequestParam(name = "file_name")String filename) throws Exception {
+      @RequestParam(name = "file") MultipartFile file,
+      @RequestParam(name = "file_name") String filename) throws Exception {
     FileModel fileModel = FileModel.builder()
         .file(file)
         .filename(filename)
@@ -38,8 +38,8 @@ public class FileController {
       value = "/file/img",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public String uploadImg(
-      @RequestParam(name = "file")MultipartFile file,
-      @RequestParam(name = "file_name")String filename) throws Exception {
+      @RequestParam(name = "file") MultipartFile file,
+      @RequestParam(name = "file_name") String filename) throws Exception {
     FileModel fileModel = FileModel.builder()
         .file(file)
         .filename(filename)
@@ -52,8 +52,8 @@ public class FileController {
       value = "/file/video",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   public String uploadVideo(
-      @RequestParam(name = "file")MultipartFile file,
-      @RequestParam(name = "file_name")String filename) throws Exception {
+      @RequestParam(name = "file") MultipartFile file,
+      @RequestParam(name = "file_name") String filename) throws Exception {
     FileModel fileModel = FileModel.builder()
         .file(file)
         .filename(filename)
@@ -65,21 +65,21 @@ public class FileController {
   @GetMapping(
       value = "/file/pdf",
       produces = {MediaType.APPLICATION_PDF_VALUE})
-  public byte[] downloadPdf(@RequestParam(name = "file_name")String fileName) {
+  public byte[] downloadPdf(@RequestParam(name = "file_name") String fileName) {
     return service.downloadFile(fileName, "pdf");
   }
 
   @GetMapping(
       value = "/file/img",
       produces = {MediaType.IMAGE_JPEG_VALUE})
-  public byte[] downloadImg(@RequestParam(name = "file_name")String fileName) {
+  public byte[] downloadImg(@RequestParam(name = "file_name") String fileName) {
     return service.downloadFile(fileName, "img");
   }
 
   @GetMapping(
       value = "/file/video",
       produces = {MediaType.APPLICATION_OCTET_STREAM_VALUE})
-  public byte[] downloadVideo(@RequestParam(name = "file_name")String fileName) {
+  public byte[] downloadVideo(@RequestParam(name = "file_name") String fileName) {
     return service.downloadFile(fileName, "video");
   }
 
