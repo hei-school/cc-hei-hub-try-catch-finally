@@ -21,4 +21,5 @@ application.use("/ping", healthRouter);
 application.use("/file", fileRouter);
 
 application.use(errorHandler);
+
 export {application};
