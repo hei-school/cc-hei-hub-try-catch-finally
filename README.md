@@ -22,38 +22,10 @@ This is the Typescript version of the _Documenty_ App
 
 1. Using Typescript
 
-- Clone git repo and checkout the `feature/typescript` branch using the following command:
-
-  ```
-  git clone https://github.com/hei-school/cc-hei-hub-try-catch-finally
-  git checkout feature/typescript
-  ```
-
-- Install the dependencies
-
-  ```
-  npm install
-  ```
-
-- Run
-
-  ```
-  npm start
-  ```
+- [Typescript implementation](https://github.com/hei-school/cc-hei-hub-try-catch-finally/tree/feature/typescript)
 
 2. Using Java
 
-- Clone git repo and checkout the `feature/java` branch using the following command:
-
-  ```
-  git clone https://github.com/hei-school/cc-hei-hub-try-catch-finally
-  git checkout feature/java
-  ```
-
- - Install the dependencies
-
-  ```
-  mvn dependency:copy-dependencies
-  ``` 
+- [Java implementation](https://github.com/hei-school/cc-hei-hub-try-catch-finally/tree/feature/java)
 
   [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/wTBA-Etm)
