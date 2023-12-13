@@ -9,7 +9,10 @@ export const writeFileInDir = async (
 ) => {
   try {
     const to = getRelativePath(directory, filename);
-    fs.writeFileSync(to, Buffer.from(buf));
+
+    console.log("to write", buf);
+
+    // fs.writeFileSync(to, Buffer.from(buf));
   } catch (e) {
     console.log("em", e.message);
     throw new FileLockError();

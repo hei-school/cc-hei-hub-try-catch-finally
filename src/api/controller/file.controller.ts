@@ -7,16 +7,14 @@ export const uploadFileHandler: RequestHandler<
   unknown,
   ArrayBuffer
 > = (req, res, next) => {
-  const filePath = req.params["file_path"];
+  const filePath = req.query["file_path"];
   const buf = req.body;
 
   if (!buf) {
     throw new BadRequest("body (binary) is required");
   }
-
-  if (!filePath) {
-    throw new BadRequest("'file_path' required");
+  if (!filePath || typeof filePath !== "string") {
+    throw new BadRequest("'file_path' required as str");
   }
-
   return uploadFile(buf, filePath);
 };

@@ -1,8 +1,7 @@
 import Express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import {healthRouter} from "./api/router";
-import {fileRouter} from "./api/router/file.router";
+import {fileRouter, healthRouter} from "./api/router";
 import {errorHandler} from "./api/middleware/error";
 
 const application = Express();
