@@ -2,9 +2,9 @@ import {BadRequest} from "http-errors";
 import {CustomError} from "./custom_error";
 
 export class InvalidFileNameError extends CustomError {
-  constructor() {
+  constructor(filename: string) {
     super(
-      "Please ensure the file name does not contain any invalid characters or spaces."
+      `Please ensure the file name does not contain any invalid characters or spaces: '${filename}'`
     );
   }
 
